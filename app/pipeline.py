@@ -1,12 +1,15 @@
-"""Document ingestion pipline."""
+"""Document ingestion pipeline."""
 
+import os
 import requests
+import tempfile
 from pathlib import Path
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
-from langchain_core.document import Document
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+
 
 def download_pdf(url: str) -> Path:
     """
@@ -15,45 +18,63 @@ def download_pdf(url: str) -> Path:
     :param url: The URL of the PDF to download.
     :return: Path to the downloaded PDF file.
     """
-    # It might not be optimal to download the PDF to disk, but it is a simple solution for now.
-    # Might need some type of value error hangling - come back later.
-    pass
+    # Downloading to disk because PyPDFLoader requires a file path, not a stream.
+    response = requests.get(url)
+    response.raise_for_status()
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    tmp.write(response.content)
+    tmp.close()
+    return Path(tmp.name)
+
 
 def load_pdf(path: Path) -> list:
     """
-    Load a PDF file from disk and parse it into LangChain documents
+    Load a PDF file from disk and parse it into LangChain documents.
 
-    :param path: Path to the PDF file on the disk.
-    :return: List of langchain objects representing the PDF content.
+    :param path: Path to the PDF file on disk.
+    :return: List of LangChain documents representing the PDF content.
     """
-    pass
+    loader = PyPDFLoader(str(path))
+    return loader.load()
 
-def chunck_docuument(docs: list) -> list:
-    """
-    Chunk the documents into smaller pieces to be ingested into the vector store.
 
-    :param docs: List of all the langchain documents to be split.
-    :return: List of all the langchain documents after being split into smaller pieces.
+def chunk_documents(docs: list) -> list:
     """
-    pass
+    Split documents into smaller chunks for vector store ingestion.
+
+    :param docs: List of LangChain documents to split.
+    :return: List of LangChain documents split into smaller pieces.
+    """
+    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    return splitter.split_documents(docs)
+
 
 def build_vector_store(chunks: list) -> FAISS:
     """
     Build a FAISS vector store from the given document chunks.
 
-    Use OPENAI embeddings to create the vector store.
-    This will allow us to perform semantic search on the documents later on.
+    Uses OpenAI embeddings to enable semantic search over the documents.
 
-    :param chunks: List of all the langchain documents to be ingested into the vector store.
-    :return: FAISS vecror store containing the document chunks and their corresponding embeddings.
+    :param chunks: List of LangChain document chunks to index.
+    :return: FAISS vector store containing the chunks and their embeddings.
     """
-    pass
+    embeddings = OpenAIEmbeddings()
+    return FAISS.from_documents(chunks, embeddings)
+
 
 def ingest(url: str) -> FAISS:
     """
-    Run the full ingestion pipline for a ssingle PDF URL.
+    Run the full ingestion pipeline for a single PDF URL.
 
-    :param url:
-    :return:
+    Downloads the PDF, parses it, chunks it, and indexes it into a vector store.
+
+    :param url: The URL of the PDF to ingest.
+    :return: FAISS vector store ready for retrieval.
     """
-    pass
+    path = download_pdf(url)
+    try:
+        docs = load_pdf(path)
+        chunks = chunk_documents(docs)
+        return build_vector_store(chunks)
+    finally:
+        os.unlink(path)
