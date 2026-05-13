@@ -70,6 +70,9 @@ def retrieve(vectorstore: FAISS, query: str, k: int = 5) -> list:
     """
     Retrieve the top-k most semantically relevant chunks for a given query.
 
+    Uses FAISS cosine similarity search over OpenAI embeddings to find
+    the chunks most likely to contain the answer.
+
     :param vectorstore: FAISS vector store built from the ingested PDF.
     :param query: The search query or question to retrieve chunks for.
     :param k: Number of chunks to retrieve. Defaults to 5.

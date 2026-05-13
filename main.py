@@ -4,7 +4,7 @@ import json
 import shutil
 from pathlib import Path
 
-from app.ingestor import ingest_multiple
+from app.pipeline import ingest_multiple
 from app.qa import analyze_company
 
 COMPANIES = {

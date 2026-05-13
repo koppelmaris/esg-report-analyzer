@@ -10,6 +10,11 @@ from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
+EMBEDDING_MODEL = "all-MiniLM-L6-v2"
+CHUNK_SIZE = 1000
+CHUNK_OVERLAP = 200
+DOWNLOAD_TIMEOUT = 60
+
 
 def download_pdf(url: str) -> Path:
     """
@@ -19,7 +24,7 @@ def download_pdf(url: str) -> Path:
     :return: Path to the downloaded PDF file on disk.
     :raises requests.HTTPError: If the download request fails.
     """
-    response = requests.get(url, timeout=60)
+    response = requests.get(url, timeout=DOWNLOAD_TIMEOUT)
     response.raise_for_status()
     tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
     tmp.write(response.content)
@@ -53,8 +58,8 @@ def chunk_document(docs: list[Document]) -> list[Document]:
     :return: List of smaller Document chunks with preserved metadata.
     """
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000,
-        chunk_overlap=200,
+        chunk_size=CHUNK_SIZE,
+        chunk_overlap=CHUNK_OVERLAP,
     )
     return splitter.split_documents(docs)
 
@@ -69,7 +74,7 @@ def build_vector_store(chunks: list[Document]) -> FAISS:
     :param chunks: List of LangChain Document chunks to embed and index.
     :return: FAISS vector store containing all chunks and their embeddings.
     """
-    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
     return FAISS.from_documents(chunks, embeddings)
 
 
