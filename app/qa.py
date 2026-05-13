@@ -121,9 +121,6 @@ def answer_question(vectorstore: FAISS, question: str) -> Answer:
              and source citation (page number and quote) if found.
     """
     chunks = retrieve(vectorstore, question, k=5)
-    print(f"\n--- {question} ---")
-    for c in chunks:
-        print(f"[Page {c.metadata.get('page', '?')}]: {c.page_content[:200]}")
     context = format_chunks(chunks)
 
     response = client.messages.create(
@@ -136,6 +133,11 @@ def answer_question(vectorstore: FAISS, question: str) -> Answer:
     )
 
     raw = response.content[0].text.strip()
+    if raw.startswith("```"):
+        raw = raw.split("```")[1]
+        if raw.startswith("json"):
+            raw = raw[4:]
+        raw = raw.strip()
 
     try:
         data = json.loads(raw)

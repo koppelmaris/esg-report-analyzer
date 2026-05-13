@@ -11,7 +11,9 @@ Eesti Energia, answers predefined ESG-related questions using only document cont
  
 ## Required environment variables
 
-...
+```angular2html
+ATHROPY_API_KEY=your_athropy_api_key_here
+```
 
 ## How to run json generation
 
@@ -35,3 +37,109 @@ Eesti Energia, answers predefined ESG-related questions using only document cont
 
 ## Possible improvements
 ...
+
+## Output
+
+```
+{
+  "Tallink Grupp": {
+    "company": "Tallink Grupp",
+    "summary": "AS Tallink Grupp has integrated ESG considerations into its core strategy and business model, completing its first double materiality assessment in 2024 and establishing KPIs across material environmental, social, and governance topics. The company has strengthened its ESG governance structure by adding dedicated FTE resources for ESG leadership and controlling, with regular ESG discussions integrated into bi-weekly and monthly management meetings. The Group's sustainability efforts span its entire value chain across maritime transport, hospitality, retail, and supporting services, with comprehensive CSRD-compliant reporting addressing key areas including carbon emissions, human rights, employee wellbeing, and supply chain governance. Initial supplier assessments show meaningful engagement, with 62% of top-tier suppliers having formal ESG policies in place.",
+    "questions": {
+      "What are the company's main ESG goals?": {
+        "status": "found",
+        "answer": "The company's main ESG goals are aligned with its overall strategy and include: 1) Achieving highest customer satisfaction through customer safety, data protection, and human rights; 2) Developing high-quality services through sustainable supply chain relationships, environmental practices for greener service delivery, and good working conditions for employees; 3) Improving profitability and market leadership through tackling climate-related issues; 4) Setting specific ESG performance targets and KPIs; and 5) Implementing carbon emission reductions and carbon reduction strategy and action plans.",
+        "confidence": "medium",
+        "source": {
+          "page": 18,
+          "quote": "The Group's sustainability objectives are aligned with its overall strategy, reflecting the integration of key ESG impact areas into its strategic framework"
+        }
+      },
+      "What emissions targets has the company set?": {
+        "status": "found",
+        "answer": "The company has set the following emissions targets: 1) Reduce Scope 1 and Scope 2 emissions by at least 2% per annum in absolute terms (baseline: 423,211 tCO2e in 2023, target year: 2030), and 2) Meet the requirements of FuelEU Maritime Regulation (baseline: 91.16 grams CO2e per MJ in 2023, target: in line with FuelEU Maritime regulation by 2030).",
+        "confidence": "high",
+        "source": {
+          "page": 31,
+          "quote": "Reduce the Group's Scope 1 and Scope 2 emissions... Per annum reduction of at least 2% (in absolute terms)... Meet the requirements of FuelEU Maritime Regulation"
+        }
+      },
+      "How does the company approach employee wellbeing?": {
+        "status": "found",
+        "answer": "The company approaches employee wellbeing through multiple channels: ensuring employees feel valued and their voices contribute meaningfully to the Group's direction through active engagement; providing occupational health and safety support with a consultative approach involving employees before decisions are made; offering compensation for work accidents or occupational diseases including rehabilitation treatments; conducting exit interviews to identify areas for improvement; collecting employee feedback through Employee Net Promoter Score (NPS); and emphasizing that employee well-being is essential for delivering quality services as part of their strategy to develop high-quality services.",
+        "confidence": "high",
+        "source": {
+          "page": 66,
+          "quote": "employees feel valued and that their voices contribute meaningfully to the Group's direction"
+        }
+      },
+      "What governance structures are in place for sustainability?": {
+        "status": "found",
+        "answer": "The governance structures for sustainability include: GOV-2 (Information provided to and sustainability matters addressed by the undertaking's administrative, management and supervisory bodies), GOV-3 (Integration of sustainability-related performance in incentive schemes), GOV-4 (Statement on due diligence), and GOV-5 (Risk management and internal controls over sustainability reporting). These are detailed in the Governance System section on page 24.",
+        "confidence": "high",
+        "source": {
+          "page": 6,
+          "quote": "GOV-2 Information provided to and sustainability matters addressed by the undertaking's administrative, management and supervisory bodies Governance System 24"
+        }
+      },
+      "What progress has been made on environmental initiatives?": {
+        "status": "found",
+        "answer": "The Group has adopted a GHG Emissions Reduction Strategy focused on actual emissions reductions from operations, with over 63% of Scope 1 and Scope 2 emissions arising from shipping operations. The strategy includes expanding scope beyond CO2 to other harmful GHG emissions (methane, nitrous oxide). Short-term goals (2024-2027) focus on sourcing and achieving GHG emissions reductions. The Group will only engage in carbon offsetting with proven environmental results and avoid greenwashing.",
+        "confidence": "high",
+        "source": {
+          "page": 21,
+          "quote": "GHG Emissions Reduction Strategy...Short-term (2024-2027) achievement of GHG emissions reductions mainly include sourcing"
+        }
+      }
+    }
+  },
+  "Eesti Energia": {
+    "company": "Eesti Energia",
+    "summary": "Based on the excerpts, here is a summary of the company's ESG position:\n\nEesti Energia has established a comprehensive ESG strategy centered on three key pillars: mitigating climate change through reduced environmental footprint and increased renewable energy, ensuring employee safety and management quality, and maintaining transparent governance. The company has set ambitious environmental targets including quadrupling renewable energy production to 1,900 MW by 2026, ceasing oil shale electricity production by 2035, and achieving carbon-neutral electricity production by 2045 through CO2 capture (90% emission reduction) and carbon sequestration. The company demonstrates strong governance with a dedicated strategic leadership team, soon-to-be-hired Head of ESG, and robust board-level oversight, with sustainability reporting aligned to GRI standards and ESRS requirements. Notably, no ESG controversies or breaches of international norms have been identified for the company as of the publication date.",
+    "questions": {
+      "What are the company's main ESG goals?": {
+        "status": "not_found",
+        "answer": null,
+        "confidence": null,
+        "source": null
+      },
+      "What emissions targets has the company set?": {
+        "status": "found",
+        "answer": "The company has set targets for Scope 1 GHG emissions only: a 7% reduction by 2030 and a 21% reduction by 2035 compared to 2024, with the ultimate goal of achieving net zero by 2050. No targets have been set for Scopes 2 and 3.",
+        "confidence": "high",
+        "source": {
+          "page": 92,
+          "quote": "a 7% reduction by 2030 and a 21% reduction by 2035 compared to 2024. The ultimate goal is to achieve net zero by 2050."
+        }
+      },
+      "How does the company approach employee wellbeing?": {
+        "status": "found",
+        "answer": "The company approaches employee wellbeing through multiple initiatives: investing in safety culture and well-being programmes, maintaining high employee engagement through regular communication and feedback opportunities, providing comprehensive policies based on human rights protection and fair remuneration, ensuring working practices support employee well-being, offering flexible working arrangements and additional benefits in motivation packages, and consulting regularly with employees on working conditions, health and safety. The company also applies ISO 45001 occupational safety standards across subsidiaries.",
+        "confidence": "high",
+        "source": {
+          "page": 5,
+          "quote": "During the period, we invested in the development of our safety culture and well-being programmes"
+        }
+      },
+      "What governance structures are in place for sustainability?": {
+        "status": "found",
+        "answer": "The governance structure for sustainability includes: (1) A supervisory board that oversees strategic and sustainability matters, with competencies in energy transition, environmental management, and stakeholder engagement; (2) A management board responsible for embedding sustainability into management systems and internal controls; (3) A sustainability steering group headed by the CFO who bears ultimate responsibility for sustainability; (4) A sustainability manager who coordinates the steering group's activities and consolidates sustainability information; (5) Information flows from functional units through the sustainability manager and CFO to management and supervisory boards; (6) The State Assets Act and nomination committee ensure board members have necessary sustainability competencies; (7) Controls implemented per the internal control framework for data quality and audit readiness; (8) Annual goal-setting process where the management board proposes sustainability goals for supervisory board approval and monitoring.",
+        "confidence": "high",
+        "source": {
+          "page": 79,
+          "quote": "The management board is responsible for ensuring that management processes, internal controls and reporting cover sustainability-related impacts, risks and opportunities"
+        }
+      },
+      "What progress has been made on environmental initiatives?": {
+        "status": "found",
+        "answer": "Several environmental initiatives are underway: The company is helping customers reduce their environmental footprint through green transition services, saving an estimated 1,550 metric tons of CO2 by 2027. They are increasing capacity of CO2-free energy production through developing new sustainable facilities. The company has a climate transition strategy targeting carbon neutrality by 2045, with intermediate goals including reducing CO2 emissions to no more than 3.6 million metric tons by 2027 (84% less than 1990 levels). Environmental action plans have been prepared setting out actions, timeframes and responsible persons, along with environmental monitoring plans. A methodology for calculating GHG footprint has been implemented and a transition plan has been adopted.",
+        "confidence": "high",
+        "source": {
+          "page": 19,
+          "quote": "saving an estimated 1,550 metric tons of CO2 by 2027"
+        }
+      }
+    }
+  }
+}
+```
