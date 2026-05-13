@@ -1,6 +1,7 @@
 """Main pipeline."""
 
 import json
+import shutil
 from pathlib import Path
 
 from app.ingestor import ingest_multiple
@@ -36,6 +37,10 @@ def run() -> None:
         json.dump(results, f, indent=2, ensure_ascii=False)
 
     print(f"\nOutput saved to {output_path}")
+
+    ui_public = Path("ui/public/output.json")
+    if ui_public.parent.exists():
+        shutil.copy(output_path, ui_public)
 
 
 if __name__ == "__main__":
